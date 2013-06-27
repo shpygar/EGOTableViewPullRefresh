@@ -49,7 +49,7 @@
 		label.font = [UIFont systemFontOfSize:12.0f];
 		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
 		label.backgroundColor = [UIColor clearColor];
-		label.textAlignment = UITextAlignmentCenter;
+		label.textAlignment = NSTextAlignmentCenter;
 		[self addSubview:label];
 		_lastUpdatedLabel=label;
 		
@@ -59,13 +59,13 @@
 		label.font = [UIFont boldSystemFontOfSize:13.0f];
 		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
 		label.backgroundColor = [UIColor clearColor];
-		label.textAlignment = UITextAlignmentCenter;
+		label.textAlignment = NSTextAlignmentCenter;
 		[self addSubview:label];
 		_statusLabel=label;
 		
         /* Config Arrow Image */
 		CALayer *layer = [[CALayer alloc] init];
-		layer.frame = CGRectMake(25.0f,midY - 35, 30.0f, 55.0f);
+		layer.frame = CGRectMake(25.0f,midY - 15, 20.0f, 35.0f);
 		layer.contentsGravity = kCAGravityResizeAspect;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
 		if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
