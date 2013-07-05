@@ -106,42 +106,52 @@
 		date = [_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
 	}
     if(date) {
-        NSTimeInterval timeSinceLastUpdate = [date timeIntervalSinceNow];
-        NSInteger timeToDisplay = 0;
-        timeSinceLastUpdate *= -1;
-        
-        if(timeSinceLastUpdate < anHour) {
-            timeToDisplay = (NSInteger) (timeSinceLastUpdate / aMinute);
-            
-            if(timeToDisplay == /* Singular*/ 1) {
-            _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld minute ago",@"PullTableViewLan",@"Last uppdate in minutes singular"),(long)timeToDisplay];
-            } else {
-                /* Plural */
-                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld minutes ago",@"PullTableViewLan",@"Last uppdate in minutes plural"), (long)timeToDisplay];
-
-            }
-            
-        } else if (timeSinceLastUpdate < aDay) {
-            timeToDisplay = (NSInteger) (timeSinceLastUpdate / anHour);
-            if(timeToDisplay == /* Singular*/ 1) {
-                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld hour ago",@"PullTableViewLan",@"Last uppdate in hours singular"), (long)timeToDisplay];
-            } else {
-                /* Plural */
-                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld hours ago",@"PullTableViewLan",@"Last uppdate in hours plural"), (long)timeToDisplay];
-                
-            }
-            
-        } else {
-            timeToDisplay = (NSInteger) (timeSinceLastUpdate / aDay);
-            if(timeToDisplay == /* Singular*/ 1) {
-                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld day ago",@"PullTableViewLan",@"Last uppdate in days singular"), (long)timeToDisplay];
-            } else {
-                /* Plural */
-                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld days ago",@"PullTableViewLan",@"Last uppdate in days plural"), (long)timeToDisplay];
-            }
-            
+        static NSDateFormatter *formatter = nil;
+        if (formatter == nil) {
+            formatter = [[NSDateFormatter alloc] init];
+            [formatter setTimeZone:[NSTimeZone localTimeZone]];
+            [formatter setLocale:[NSLocale currentLocale]];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterShortStyle];
         }
-        
+        _lastUpdatedLabel.text = [NSString stringWithFormat:@"Last Modified: %@", [formatter stringFromDate:date]];
+
+//        NSTimeInterval timeSinceLastUpdate = [date timeIntervalSinceNow];
+//        NSInteger timeToDisplay = 0;
+//        timeSinceLastUpdate *= -1;
+//        
+//        if(timeSinceLastUpdate < anHour) {
+//            timeToDisplay = (NSInteger) (timeSinceLastUpdate / aMinute);
+//            
+//            if(timeToDisplay == /* Singular*/ 1) {
+//            _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld minute ago",@"PullTableViewLan",@"Last uppdate in minutes singular"),(long)timeToDisplay];
+//            } else {
+//                /* Plural */
+//                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld minutes ago",@"PullTableViewLan",@"Last uppdate in minutes plural"), (long)timeToDisplay];
+//
+//            }
+//            
+//        } else if (timeSinceLastUpdate < aDay) {
+//            timeToDisplay = (NSInteger) (timeSinceLastUpdate / anHour);
+//            if(timeToDisplay == /* Singular*/ 1) {
+//                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld hour ago",@"PullTableViewLan",@"Last uppdate in hours singular"), (long)timeToDisplay];
+//            } else {
+//                /* Plural */
+//                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld hours ago",@"PullTableViewLan",@"Last uppdate in hours plural"), (long)timeToDisplay];
+//                
+//            }
+//            
+//        } else {
+//            timeToDisplay = (NSInteger) (timeSinceLastUpdate / aDay);
+//            if(timeToDisplay == /* Singular*/ 1) {
+//                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld day ago",@"PullTableViewLan",@"Last uppdate in days singular"), (long)timeToDisplay];
+//            } else {
+//                /* Plural */
+//                _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %ld days ago",@"PullTableViewLan",@"Last uppdate in days plural"), (long)timeToDisplay];
+//            }
+//            
+//        }
+//        
     } else {
         _lastUpdatedLabel.text = nil;
     }
