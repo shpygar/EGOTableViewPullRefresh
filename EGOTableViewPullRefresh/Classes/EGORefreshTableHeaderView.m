@@ -23,7 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
+#import "NSLocale+preferenceLocale.h"
 #import "EGORefreshTableHeaderView.h"
 
 
@@ -110,7 +110,7 @@
         if (formatter == nil) {
             formatter = [[NSDateFormatter alloc] init];
             [formatter setTimeZone:[NSTimeZone localTimeZone]];
-            [formatter setLocale:[NSLocale currentLocale]];
+            [formatter setLocale:[NSLocale preferenceLocale]];
             [formatter setDateStyle:NSDateFormatterMediumStyle];
             [formatter setTimeStyle:NSDateFormatterShortStyle];
         }
